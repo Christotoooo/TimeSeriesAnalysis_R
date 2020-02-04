@@ -1,0 +1,124 @@
+---
+title: "MATH545-A1-Q5"
+author: "Christopher Zheng"
+date: "30/01/2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r, warning=FALSE,message=FALSE}
+library(readxl) # You may need to install this package first
+library(tidyverse)
+library(fpp2)
+library(knitr)
+library(tsbox)
+library(gridExtra)
+library(tibbletime)
+sales_data <- read_excel("Assign1Q5_sales.xlsx")
+library(forecast) # You may need to install this package first
+sales_ts <- ts(sales_data, frequency=13) # Because there are
+# 13 4-week periods per year
+#length(sales_ts[1])
+```
+
+
+##### (a) First plot and describe the time series. Note any perceived trend and seasonal components. Do you believe that the sales data series is a stationary series? Explain your answer. Hint: You may want to use an ACF plot.
+
+
+```{r,warning=FALSE,message=FALSE}
+autoplot(sales_ts,facets=TRUE)
+```
+
+This time series has a slight decreasing trend, which might be linear, and it also has a fairly strong seasonality whose period is approximately of one unit of the time.
+In terms of values, this time series ranges from 0 to 300 and is dreasing slowly.
+
+```{r,warning=FALSE,message=FALSE}
+ggAcf(sales_ts)
+```
+
+No, it is non-stationary. For a stationary series, we would ultimately expect to see autocorrelations to decay to zero at higher lags (although that is not enough to indicate stationarity). This does not seem to be the case here.
+
+
+##### (b) Estimate trend and seasonal components for the time series. Do you find evidence of a trend and seasonal component in the data? Explain. Assess the residuals from your decomposition for evidence that they are resulting from a white noise or iid noise process.
+
+(Compute the trend)
+
+```{r,warning=FALSE,message=FALSE}
+sales_linear <- tslm(sales_ts~trend) ## Fit linear trend
+
+sales_quad<- tslm(sales_ts~trend + I(trend^2)) ## Fit linear trend
+sales_with_fits<-cbind(sales_ts,
+  Linear_trend = fitted(sales_linear),
+  Quadratic_trend = fitted(sales_quad))
+autoplot(sales_with_fits)+
+  ylab("sales_ts") +
+  ggtitle("sales_ts with possible trends") + xlab("time") +
+  guides(colour=guide_legend(title="Data series"))+
+  scale_colour_manual(values=c("black","red","blue"))
+```
+
+There is a strong indication for a trend component which can be linear or quadratic based on the plot above. The two types of trends have very similar behaviours.
+
+(Remove trend) 
+
+```{r,warning=FALSE,message=FALSE}
+sales_without_trend <- cbind(
+  Original = sales_with_fits[,"sales_ts"],
+  Remove_linear_trend=sales_ts - sales_with_fits[,"Linear_trend"],
+  Remove_quadratic_trend=sales_ts - sales_with_fits[,"Quadratic_trend"])
+
+autoplot(sales_without_trend,facet=TRUE)
+```
+
+###### Estimate seasonality
+
+```{r,warning=FALSE,message=FALSE}
+#frequency(sales_without_trend[,"Remove_linear_trend"])
+sales_seasonlm <- tslm(Remove_quadratic_trend~season, data = sales_without_trend)
+autoplot(fitted(sales_seasonlm))
+```
+
+There is also a quite strong seasonality as shown above.
+
+```{r}
+temp <- sales_ts - sales_with_fits[,"Quadratic_trend"] - fitted(sales_seasonlm)
+autoplot(temp)
+```
+
+
+The aforeshown residual plot represents the noise component for the sales time series. As we can see that the major weight centers around 0 with random fluctuations and variations. We can safely assume that this results from a white noise or iid noise process.
+
+
+##### (c) Using an appropriate sequence of difference operators, try to eliminate any perceived trend and seasonal components from part (c). Assess the residuals from your decomposition for evidence that they are resulting from a white noise or iid noise process.
+
+(using differences)
+
+```{r,warning=FALSE,message=FALSE}
+
+sales_lag13 <- diff(sales_ts,3)
+sales_lag13 <- diff(sales_ts,13)
+autoplot(sales_lag13)
+```
+
+By first differencing by 3, we remove the linear trend. Then we again difference by 13 to remove the seasonality. From the results above, we can tell that the remaining noise is whitle noise or iid noise.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
