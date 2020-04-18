@@ -1,0 +1,161 @@
+---
+title: "A3 Final Question"
+author: "Christopher Zheng"
+date: "04/04/2020"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(dplyr)
+library(itsmr)
+library(fpp2)
+library(tidyverse)
+library(forecast)
+library(tibbletime)
+library(tsbox)
+library(gridExtra)
+```
+
+
+(a) Remove the last 12 values from the Beer data set by using
+
+```{r}
+beer_original = dget("beer.Rput")
+beer <- head(beer_original,-12)
+```
+
+
+(b) Find an ARIMA model for the logarithms of the beer data. Your analysis should include:
+
+  i) a logical explanation of the steps taken to choose the final model;
+  ii) appropriate 95% bounds for the components of φ and θ;
+  iii) an examination of the residuals to check for similarity to a white noise process;
+  iv) a graph of the series showing forecasts of the removed 12 values and 95% prediction bounds;
+  v) numerical values for the 12-step ahead forecast and the corresponding 95% prediction bounds
+  vi) a table of the actual forecast errors, i.e. observed - predicted, for the removed 12 values
+
+```{r}
+beer <- log(beer)
+#autoplot(beer)
+#acf(beer)
+```
+
+
+```{r}
+# Decompose w/ stl
+beer_stl<-stl(beer,s.window=12)
+autoplot(beer_stl)
+```
+
+```{r}
+# Use tslm() to extract the seasonality and the quadratic trend
+beer_tslm <- tslm(beer~trend + I(trend^2) + season)
+beer_tslm_forecast <- forecast(beer_tslm, h = 12)
+autoplot(beer_tslm_forecast)
+```
+
+```{r, warning=FALSE}
+# Focus on the remainder. Since ACF(remainder) suggests a strong autocovariance out of the confidence interval band, it is not a white noise and we need an ARMA to fit the remainder component.
+autoplot(beer_stl$time.series[,'remainder'])
+checkresiduals(beer_stl$time.series[,'remainder'])
+
+```
+
+```{r}
+# Use auto.arima() to fit data into an ARMA(5,1), which is ideal because the resulted residuals do not witness a strong autocovariance.
+
+beer_model_part_b <- auto.arima(beer_stl$time.series[,"remainder"], stepwise = FALSE, seasonal = FALSE, ic = "aic", trace = TRUE, max.order = 10, max.d = 0)
+```
+
+
+```{r}
+checkresiduals(beer_model_part_b)
+test(residuals(beer_model_part_b))
+#  Side note: ARMA(4,1), AR(4) and AR(5) are also acceptable since 0 is contained in the 95% interval.
+confint(beer_model_part_b)
+```
+```{r}
+# Forecasting w/ ARMA(5,1)
+beer_model_part_b_forecast <- forecast(beer_model_part_b, h = 12)
+autoplot(beer_model_part_b_forecast)
+
+# Combine the tslm() and ARMA() forecasting results.
+beer_model_part_b_forecast_wmean <- beer_model_part_b_forecast
+beer_model_part_b_forecast_wmean$x <- beer_tslm_forecast$x + beer_model_part_b_forecast$x
+beer_model_part_b_forecast_wmean$mean <- beer_tslm_forecast$mean + beer_model_part_b_forecast$mean
+beer_model_part_b_forecast_wmean$lower <- beer_tslm_forecast$mean + beer_model_part_b_forecast$lower
+beer_model_part_b_forecast_wmean$upper <- beer_tslm_forecast$mean + beer_model_part_b_forecast$upper
+autoplot(beer_model_part_b_forecast_wmean)
+```
+```{r}
+# Evaluation
+beer_tail <- log(tail(beer_original, 12))
+errors <- beer_tail - beer_model_part_b_forecast_wmean$mean
+
+df <- data.frame(beer_model_part_b_forecast_wmean$mean, errors, beer_model_part_b_forecast_wmean$lower, beer_model_part_b_forecast_wmean$upper)
+#rename
+colnames(df) <- c("Estimate", "Errors", "80% C.I. Lower", "95% C.I. Lower", "80% C.I. Upper", "95% C.I. Upper")
+df
+```
+
+
+(c) Repeat the steps in part (b), but instead use a classical decomposition approach by deseasonalizing, subtracting a quadratic trend, and then fitting and ARMA model to the residuals. Then compare your forecast errors to those in part (b).
+
+```{r}
+# We have deseasonalized the log series in (b), so now we further remove the quadratic trend.
+b <- beer_stl$time.series[,"trend"] + beer_stl$time.series[,"remainder"]
+quadratic = trend(b, p=2)
+res = quadratic - b
+#autoplot(res)
+acf(res)
+# Strong autocorrelation but no seasonality.
+# An ARMA suffices.
+```
+
+```{r}
+model <- auto.arima(res, stepwise = FALSE, seasonal = FALSE, ic="aic", trace = TRUE, max.d = 0)
+# It says ARMA(1,3) is the best
+```
+
+```{r}
+model_part_c <- arima(res, c(1,0,3))
+summary(model_part_c)
+checkresiduals(model_part_c)
+test(residuals(model_part_c))
+
+confint(arima(window(res),c(1,0,3))) # These figures suggest that ARma(1,3) suffices.
+
+```
+
+```{r, warning=FALSE}
+# Forecasting w/ ARMA(1,3)
+remainder <- forecast(model, h = 12)
+
+dummy1 <- as.numeric(forecast(quadratic, h = 12)$mean)
+t1 <- ts(dummy1, start = c(1990, 3), end = c(1991, 2), frequency = 12)
+
+dummy2 <- as.numeric(beer_stl$time.series[,"seasonal"])
+t2 <- ts(tail(dummy2, 12), start = c(1990, 3), end = c(1991, 2), frequency = 12)
+
+remainder$mean <- t1 + remainder$mean + t2
+remainder$lower <- t1 + remainder$lower + t2
+remainder$upper <- t1 + remainder$upper + t2
+
+# Make sure do not use ggfortify and forecast simultaneously
+autoplot(remainder, ylim=c(4,6)) + autolayer(beer)
+```
+
+```{r}
+errors <- beer_tail - remainder$mean
+df2 <- data.frame(remainder$mean, errors, remainder$lower, remainder$upper)
+colnames(df2) <- c("Estimate", "Errors", "80% C.I. Lower", "95% C.I. Lower", "80% C.I. Upper", "95% C.I. Upper")
+df2
+```
+
+
+As we can see, the method of part b and the method of part c are of the same quality. This is because in part b we use tslm to estimate the trend while in part c we estimate the trend quite separately. The paths are different but the goals are the same.

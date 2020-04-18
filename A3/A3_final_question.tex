@@ -1,0 +1,792 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={A3 Final Question},
+            pdfauthor={Christopher Zheng},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{A3 Final Question}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Christopher Zheng}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{04/04/2020}
+
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  Remove the last 12 values from the Beer data set by using
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beer_original =}\StringTok{ }\KeywordTok{dget}\NormalTok{(}\StringTok{"beer.Rput"}\NormalTok{)}
+\NormalTok{beer <-}\StringTok{ }\KeywordTok{head}\NormalTok{(beer_original,}\OperatorTok{-}\DecValTok{12}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Find an ARIMA model for the logarithms of the beer data. Your analysis
+  should include:
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\roman{enumi})}
+\tightlist
+\item
+  a logical explanation of the steps taken to choose the final model;
+\item
+  appropriate 95\% bounds for the components of φ and θ;
+\item
+  an examination of the residuals to check for similarity to a white
+  noise process;
+\item
+  a graph of the series showing forecasts of the removed 12 values and
+  95\% prediction bounds;
+\item
+  numerical values for the 12-step ahead forecast and the corresponding
+  95\% prediction bounds
+\item
+  a table of the actual forecast errors, i.e.~observed - predicted, for
+  the removed 12 values
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beer <-}\StringTok{ }\KeywordTok{log}\NormalTok{(beer)}
+\CommentTok{#autoplot(beer)}
+\CommentTok{#acf(beer)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Decompose w/ stl}
+\NormalTok{beer_stl<-}\KeywordTok{stl}\NormalTok{(beer,}\DataTypeTok{s.window=}\DecValTok{12}\NormalTok{)}
+\KeywordTok{autoplot}\NormalTok{(beer_stl)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{A3_final_question_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Use tslm() to extract the seasonality and the quadratic trend}
+\NormalTok{beer_tslm <-}\StringTok{ }\KeywordTok{tslm}\NormalTok{(beer}\OperatorTok{~}\NormalTok{trend }\OperatorTok{+}\StringTok{ }\KeywordTok{I}\NormalTok{(trend}\OperatorTok{^}\DecValTok{2}\NormalTok{) }\OperatorTok{+}\StringTok{ }\NormalTok{season)}
+\NormalTok{beer_tslm_forecast <-}\StringTok{ }\KeywordTok{forecast}\NormalTok{(beer_tslm, }\DataTypeTok{h =} \DecValTok{12}\NormalTok{)}
+\KeywordTok{autoplot}\NormalTok{(beer_tslm_forecast)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{A3_final_question_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Focus on the remainder. Since ACF(remainder) suggests a strong autocovariance out of the confidence interval band, it is not a white noise and we need an ARMA to fit the remainder component.}
+\KeywordTok{autoplot}\NormalTok{(beer_stl}\OperatorTok{$}\NormalTok{time.series[,}\StringTok{'remainder'}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{A3_final_question_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{checkresiduals}\NormalTok{(beer_stl}\OperatorTok{$}\NormalTok{time.series[,}\StringTok{'remainder'}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{A3_final_question_files/figure-latex/unnamed-chunk-5-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Use auto.arima() to fit data into an ARMA(5,1), which is ideal because the resulted residuals do not witness a strong autocovariance.}
+
+\NormalTok{beer_model_part_b <-}\StringTok{ }\KeywordTok{auto.arima}\NormalTok{(beer_stl}\OperatorTok{$}\NormalTok{time.series[,}\StringTok{"remainder"}\NormalTok{], }\DataTypeTok{stepwise =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{seasonal =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ic =} \StringTok{"aic"}\NormalTok{, }\DataTypeTok{trace =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{max.order =} \DecValTok{10}\NormalTok{, }\DataTypeTok{max.d =} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Fitting models using approximations to speed things up...
+## 
+##  ARIMA(0,0,0)            with zero mean     : -1167.818
+##  ARIMA(0,0,0)            with non-zero mean : -1165.82
+##  ARIMA(0,0,1)            with zero mean     : -1256.687
+##  ARIMA(0,0,1)            with non-zero mean : -1254.926
+##  ARIMA(0,0,2)            with zero mean     : -1312.783
+##  ARIMA(0,0,2)            with non-zero mean : -1311.074
+##  ARIMA(0,0,3)            with zero mean     : -1311.503
+##  ARIMA(0,0,3)            with non-zero mean : -1309.798
+##  ARIMA(0,0,4)            with zero mean     : -1320.639
+##  ARIMA(0,0,4)            with non-zero mean : -1318.91
+##  ARIMA(0,0,5)            with zero mean     : -1326.706
+##  ARIMA(0,0,5)            with non-zero mean : -1325.008
+##  ARIMA(1,0,0)            with zero mean     : -1197.809
+##  ARIMA(1,0,0)            with non-zero mean : -1195.809
+##  ARIMA(1,0,1)            with zero mean     : -1310.018
+##  ARIMA(1,0,1)            with non-zero mean : -1308.069
+##  ARIMA(1,0,2)            with zero mean     : -1313.66
+##  ARIMA(1,0,2)            with non-zero mean : -1311.851
+##  ARIMA(1,0,3)            with zero mean     : -1313.648
+##  ARIMA(1,0,3)            with non-zero mean : -1311.866
+##  ARIMA(1,0,4)            with zero mean     : -1322.149
+##  ARIMA(1,0,4)            with non-zero mean : -1320.315
+##  ARIMA(1,0,5)            with zero mean     : -1331.193
+##  ARIMA(1,0,5)            with non-zero mean : -1329.193
+##  ARIMA(2,0,0)            with zero mean     : -1237.671
+##  ARIMA(2,0,0)            with non-zero mean : -1235.69
+##  ARIMA(2,0,1)            with zero mean     : -1279.599
+##  ARIMA(2,0,1)            with non-zero mean : -1277.955
+##  ARIMA(2,0,2)            with zero mean     : -1300.604
+##  ARIMA(2,0,2)            with non-zero mean : -1299.01
+##  ARIMA(2,0,3)            with zero mean     : -1299.075
+##  ARIMA(2,0,3)            with non-zero mean : -1297.477
+##  ARIMA(2,0,4)            with zero mean     : -1359.852
+##  ARIMA(2,0,4)            with non-zero mean : -1358.181
+##  ARIMA(2,0,5)            with zero mean     : -1366.592
+##  ARIMA(2,0,5)            with non-zero mean : -1364.925
+##  ARIMA(3,0,0)            with zero mean     : -1237.681
+##  ARIMA(3,0,0)            with non-zero mean : -1235.731
+##  ARIMA(3,0,1)            with zero mean     : -1270.749
+##  ARIMA(3,0,1)            with non-zero mean : -1269.054
+##  ARIMA(3,0,2)            with zero mean     : -1281.815
+##  ARIMA(3,0,2)            with non-zero mean : -1280.151
+##  ARIMA(3,0,3)            with zero mean     : Inf
+##  ARIMA(3,0,3)            with non-zero mean : Inf
+##  ARIMA(3,0,4)            with zero mean     : -1314.367
+##  ARIMA(3,0,4)            with non-zero mean : -1312.739
+##  ARIMA(3,0,5)            with zero mean     : -1312.672
+##  ARIMA(3,0,5)            with non-zero mean : -1311.035
+##  ARIMA(4,0,0)            with zero mean     : -1282.117
+##  ARIMA(4,0,0)            with non-zero mean : -1280.19
+##  ARIMA(4,0,1)            with zero mean     : -1320.789
+##  ARIMA(4,0,1)            with non-zero mean : -1319.058
+##  ARIMA(4,0,2)            with zero mean     : -1338.146
+##  ARIMA(4,0,2)            with non-zero mean : -1336.172
+##  ARIMA(4,0,3)            with zero mean     : Inf
+##  ARIMA(4,0,3)            with non-zero mean : Inf
+##  ARIMA(4,0,4)            with zero mean     : Inf
+##  ARIMA(4,0,4)            with non-zero mean : Inf
+##  ARIMA(4,0,5)            with zero mean     : Inf
+##  ARIMA(4,0,5)            with non-zero mean : Inf
+##  ARIMA(5,0,0)            with zero mean     : -1289.149
+##  ARIMA(5,0,0)            with non-zero mean : -1287.209
+##  ARIMA(5,0,1)            with zero mean     : -1346.94
+##  ARIMA(5,0,1)            with non-zero mean : -1344.991
+##  ARIMA(5,0,2)            with zero mean     : -1352.495
+##  ARIMA(5,0,2)            with non-zero mean : Inf
+##  ARIMA(5,0,3)            with zero mean     : Inf
+##  ARIMA(5,0,3)            with non-zero mean : Inf
+##  ARIMA(5,0,4)            with zero mean     : Inf
+##  ARIMA(5,0,4)            with non-zero mean : Inf
+##  ARIMA(5,0,5)            with zero mean     : Inf
+##  ARIMA(5,0,5)            with non-zero mean : Inf
+## 
+##  Now re-fitting the best model(s) without approximations...
+## 
+##  ARIMA(0,0,0)            with zero mean     : -1167.818
+##  ARIMA(0,0,0)            with non-zero mean : -1165.82
+##  ARIMA(0,0,1)            with zero mean     : -1255.194
+##  ARIMA(0,0,1)            with non-zero mean : -1253.362
+##  ARIMA(0,0,2)            with zero mean     : -1313.3
+##  ARIMA(0,0,2)            with non-zero mean : -1311.341
+##  ARIMA(0,0,3)            with zero mean     : -1311.825
+##  ARIMA(0,0,3)            with non-zero mean : -1309.88
+##  ARIMA(0,0,4)            with zero mean     : -1322.096
+##  ARIMA(0,0,4)            with non-zero mean : -1320.097
+##  ARIMA(0,0,5)            with zero mean     : -1327.382
+##  ARIMA(0,0,5)            with non-zero mean : -1325.427
+##  ARIMA(1,0,0)            with zero mean     : -1198.642
+##  ARIMA(1,0,0)            with non-zero mean : -1196.643
+##  ARIMA(1,0,1)            with zero mean     : -1308.656
+##  ARIMA(1,0,1)            with non-zero mean : -1306.662
+##  ARIMA(1,0,2)            with zero mean     : -1312.72
+##  ARIMA(1,0,2)            with non-zero mean : -1310.79
+##  ARIMA(1,0,3)            with zero mean     : -1312.975
+##  ARIMA(1,0,3)            with non-zero mean : -1311.037
+##  ARIMA(1,0,4)            with zero mean     : -1322.216
+##  ARIMA(1,0,4)            with non-zero mean : -1320.216
+##  ARIMA(1,0,5)            with zero mean     : -1326.94
+##  ARIMA(1,0,5)            with non-zero mean : -1325.025
+##  ARIMA(2,0,0)            with zero mean     : -1235.925
+##  ARIMA(2,0,0)            with non-zero mean : -1233.931
+##  ARIMA(2,0,1)            with zero mean     : -1307.916
+##  ARIMA(2,0,1)            with non-zero mean : -1305.936
+##  ARIMA(2,0,2)            with zero mean     : -1316.337
+##  ARIMA(2,0,2)            with non-zero mean : -1314.362
+##  ARIMA(2,0,3)            with zero mean     : -1315.183
+##  ARIMA(2,0,3)            with non-zero mean : -1313.197
+##  ARIMA(2,0,4)            with zero mean     : Inf
+##  ARIMA(2,0,4)            with non-zero mean : Inf
+##  ARIMA(2,0,5)            with zero mean     : Inf
+##  ARIMA(2,0,5)            with non-zero mean : Inf
+##  ARIMA(3,0,0)            with zero mean     : -1233.955
+##  ARIMA(3,0,0)            with non-zero mean : -1231.961
+##  ARIMA(3,0,1)            with zero mean     : -1307.097
+##  ARIMA(3,0,1)            with non-zero mean : -1305.104
+##  ARIMA(3,0,2)            with zero mean     : -1317.345
+##  ARIMA(3,0,2)            with non-zero mean : -1315.348
+##  ARIMA(3,0,3)            with zero mean     : Inf
+##  ARIMA(3,0,3)            with non-zero mean : Inf
+##  ARIMA(3,0,4)            with zero mean     : Inf
+##  ARIMA(3,0,4)            with non-zero mean : Inf
+##  ARIMA(3,0,5)            with zero mean     : Inf
+##  ARIMA(3,0,5)            with non-zero mean : Inf
+##  ARIMA(4,0,0)            with zero mean     : -1278.86
+##  ARIMA(4,0,0)            with non-zero mean : -1276.883
+##  ARIMA(4,0,1)            with zero mean     : -1333.842
+##  ARIMA(4,0,1)            with non-zero mean : -1331.929
+##  ARIMA(4,0,2)            with zero mean     : -1334.693
+##  ARIMA(4,0,2)            with non-zero mean : -1332.765
+##  ARIMA(4,0,3)            with zero mean     : Inf
+##  ARIMA(4,0,3)            with non-zero mean : Inf
+##  ARIMA(4,0,4)            with zero mean     : Inf
+##  ARIMA(4,0,4)            with non-zero mean : Inf
+##  ARIMA(4,0,5)            with zero mean     : Inf
+##  ARIMA(4,0,5)            with non-zero mean : Inf
+##  ARIMA(5,0,0)            with zero mean     : -1285.853
+##  ARIMA(5,0,0)            with non-zero mean : -1283.888
+##  ARIMA(5,0,1)            with zero mean     : -1335.382
+##  ARIMA(5,0,1)            with non-zero mean : -1333.441
+##  ARIMA(5,0,2)            with zero mean     : -1333.472
+##  ARIMA(5,0,2)            with non-zero mean : -1331.532
+##  ARIMA(5,0,3)            with zero mean     : Inf
+##  ARIMA(5,0,3)            with non-zero mean : Inf
+##  ARIMA(5,0,4)            with zero mean     : Inf
+##  ARIMA(5,0,4)            with non-zero mean : Inf
+##  ARIMA(5,0,5)            with zero mean     : Inf
+##  ARIMA(5,0,5)            with non-zero mean : Inf
+## 
+## 
+## 
+## 
+## 
+##  Best model: ARIMA(5,0,1)            with zero mean
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{checkresiduals}\NormalTok{(beer_model_part_b)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{A3_final_question_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{verbatim}
+## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(5,0,1) with zero mean
+## Q* = 82.054, df = 18, p-value = 3.737e-10
+## 
+## Model df: 6.   Total lags used: 24
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{test}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(beer_model_part_b))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Null hypothesis: Residuals are iid noise.
+## Test                        Distribution Statistic   p-value
+## Ljung-Box Q                Q ~ chisq(20)     50.11     2e-04 *
+## McLeod-Li Q                Q ~ chisq(20)     40.29    0.0046 *
+## Turning points T    (T-272)/8.5 ~ N(0,1)       293    0.0137 *
+## Diff signs S      (S-204.5)/5.9 ~ N(0,1)       207    0.6692
+## Rank P       (P-41922.5)/1386.2 ~ N(0,1)     45636    0.0074 *
+\end{verbatim}
+
+\includegraphics{A3_final_question_files/figure-latex/unnamed-chunk-7-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#  Side note: ARMA(4,1), AR(4) and AR(5) are also acceptable since 0 is contained in the 95% interval.}
+\KeywordTok{confint}\NormalTok{(beer_model_part_b)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##            2.5 %      97.5 %
+## ar1  0.320861311  0.52205552
+## ar2 -0.216736258 -0.01455726
+## ar3  0.055485219  0.25838971
+## ar4 -0.403400686 -0.20021308
+## ar5 -0.004051991  0.19891227
+## ma1 -0.998377015 -0.94133262
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Forecasting w/ ARMA(5,1)}
+\NormalTok{beer_model_part_b_forecast <-}\StringTok{ }\KeywordTok{forecast}\NormalTok{(beer_model_part_b, }\DataTypeTok{h =} \DecValTok{12}\NormalTok{)}
+\KeywordTok{autoplot}\NormalTok{(beer_model_part_b_forecast)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{A3_final_question_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Combine the tslm() and ARMA() forecasting results.}
+\NormalTok{beer_model_part_b_forecast_wmean <-}\StringTok{ }\NormalTok{beer_model_part_b_forecast}
+\NormalTok{beer_model_part_b_forecast_wmean}\OperatorTok{$}\NormalTok{x <-}\StringTok{ }\NormalTok{beer_tslm_forecast}\OperatorTok{$}\NormalTok{x }\OperatorTok{+}\StringTok{ }\NormalTok{beer_model_part_b_forecast}\OperatorTok{$}\NormalTok{x}
+\NormalTok{beer_model_part_b_forecast_wmean}\OperatorTok{$}\NormalTok{mean <-}\StringTok{ }\NormalTok{beer_tslm_forecast}\OperatorTok{$}\NormalTok{mean }\OperatorTok{+}\StringTok{ }\NormalTok{beer_model_part_b_forecast}\OperatorTok{$}\NormalTok{mean}
+\NormalTok{beer_model_part_b_forecast_wmean}\OperatorTok{$}\NormalTok{lower <-}\StringTok{ }\NormalTok{beer_tslm_forecast}\OperatorTok{$}\NormalTok{mean }\OperatorTok{+}\StringTok{ }\NormalTok{beer_model_part_b_forecast}\OperatorTok{$}\NormalTok{lower}
+\NormalTok{beer_model_part_b_forecast_wmean}\OperatorTok{$}\NormalTok{upper <-}\StringTok{ }\NormalTok{beer_tslm_forecast}\OperatorTok{$}\NormalTok{mean }\OperatorTok{+}\StringTok{ }\NormalTok{beer_model_part_b_forecast}\OperatorTok{$}\NormalTok{upper}
+\KeywordTok{autoplot}\NormalTok{(beer_model_part_b_forecast_wmean)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{A3_final_question_files/figure-latex/unnamed-chunk-8-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Evaluation}
+\NormalTok{beer_tail <-}\StringTok{ }\KeywordTok{log}\NormalTok{(}\KeywordTok{tail}\NormalTok{(beer_original, }\DecValTok{12}\NormalTok{))}
+\NormalTok{errors <-}\StringTok{ }\NormalTok{beer_tail }\OperatorTok{-}\StringTok{ }\NormalTok{beer_model_part_b_forecast_wmean}\OperatorTok{$}\NormalTok{mean}
+
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(beer_model_part_b_forecast_wmean}\OperatorTok{$}\NormalTok{mean, errors, beer_model_part_b_forecast_wmean}\OperatorTok{$}\NormalTok{lower, beer_model_part_b_forecast_wmean}\OperatorTok{$}\NormalTok{upper)}
+\CommentTok{#rename}
+\KeywordTok{colnames}\NormalTok{(df) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Errors"}\NormalTok{, }\StringTok{"80% C.I. Lower"}\NormalTok{, }\StringTok{"95% C.I. Lower"}\NormalTok{, }\StringTok{"80% C.I. Upper"}\NormalTok{, }\StringTok{"95% C.I. Upper"}\NormalTok{)}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Estimate        Errors 80% C.I. Lower 95% C.I. Lower 80% C.I. Upper
+## 1  5.084305  0.0094454226       5.024243       4.992449       5.144366
+## 2  5.033403  0.0009489748       4.964903       4.928641       5.101903
+## 3  4.957986  0.0711438940       4.886390       4.848489       5.029582
+## 4  4.845262  0.0629713172       4.773527       4.735553       4.916997
+## 5  4.939564  0.0596735517       4.865353       4.826068       5.013775
+## 6  4.974467  0.0247702934       4.900149       4.860807       5.048785
+## 7  5.023972 -0.1298707404       4.949260       4.909710       5.098684
+## 8  5.150515  0.1163120522       5.075716       5.036120       5.225313
+## 9  5.193854  0.1456048570       5.118927       5.079263       5.268782
+## 10 5.280787  0.0024164039       5.205859       5.166194       5.355716
+## 11 5.094439  0.0054273469       5.019457       4.979764       5.169421
+## 12 5.024512 -0.0273001441       4.949520       4.909821       5.099505
+##    95% C.I. Upper
+## 1        5.176161
+## 2        5.138165
+## 3        5.067483
+## 4        4.954971
+## 5        5.053059
+## 6        5.088127
+## 7        5.138234
+## 8        5.264909
+## 9        5.308446
+## 10       5.395381
+## 11       5.209114
+## 12       5.139204
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Repeat the steps in part (b), but instead use a classical
+  decomposition approach by deseasonalizing, subtracting a quadratic
+  trend, and then fitting and ARMA model to the residuals. Then compare
+  your forecast errors to those in part (b).
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# We have deseasonalized the log series in (b), so now we further remove the quadratic trend.}
+\NormalTok{b <-}\StringTok{ }\NormalTok{beer_stl}\OperatorTok{$}\NormalTok{time.series[,}\StringTok{"trend"}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{beer_stl}\OperatorTok{$}\NormalTok{time.series[,}\StringTok{"remainder"}\NormalTok{]}
+\NormalTok{quadratic =}\StringTok{ }\KeywordTok{trend}\NormalTok{(b, }\DataTypeTok{p=}\DecValTok{2}\NormalTok{)}
+\NormalTok{res =}\StringTok{ }\NormalTok{quadratic }\OperatorTok{-}\StringTok{ }\NormalTok{b}
+\CommentTok{#autoplot(res)}
+\KeywordTok{acf}\NormalTok{(res)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{A3_final_question_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Strong autocorrelation but no seasonality.}
+\CommentTok{# An ARMA suffices.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model <-}\StringTok{ }\KeywordTok{auto.arima}\NormalTok{(res, }\DataTypeTok{stepwise =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{seasonal =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{ic=}\StringTok{"aic"}\NormalTok{, }\DataTypeTok{trace =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{max.d =} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Fitting models using approximations to speed things up...
+## 
+##  ARIMA(0,0,0)            with zero mean     : -931.6883
+##  ARIMA(0,0,0)            with non-zero mean : -929.6883
+##  ARIMA(0,0,1)            with zero mean     : -953.5766
+##  ARIMA(0,0,1)            with non-zero mean : -951.5767
+##  ARIMA(0,0,2)            with zero mean     : -962.6016
+##  ARIMA(0,0,2)            with non-zero mean : -960.6057
+##  ARIMA(0,0,3)            with zero mean     : -1011.104
+##  ARIMA(0,0,3)            with non-zero mean : -1009.121
+##  ARIMA(0,0,4)            with zero mean     : -1013.057
+##  ARIMA(0,0,4)            with non-zero mean : -1011.086
+##  ARIMA(0,0,5)            with zero mean     : -1034.401
+##  ARIMA(0,0,5)            with non-zero mean : -1032.472
+##  ARIMA(1,0,0)            with zero mean     : -965.4083
+##  ARIMA(1,0,0)            with non-zero mean : -963.4176
+##  ARIMA(1,0,1)            with zero mean     : -1093.212
+##  ARIMA(1,0,1)            with non-zero mean : -1091.934
+##  ARIMA(1,0,2)            with zero mean     : -1119.574
+##  ARIMA(1,0,2)            with non-zero mean : -1118.265
+##  ARIMA(1,0,3)            with zero mean     : -1129.924
+##  ARIMA(1,0,3)            with non-zero mean : -1128.543
+##  ARIMA(1,0,4)            with zero mean     : -1130.919
+##  ARIMA(1,0,4)            with non-zero mean : -1129.585
+##  ARIMA(2,0,0)            with zero mean     : -999.7246
+##  ARIMA(2,0,0)            with non-zero mean : -997.7889
+##  ARIMA(2,0,1)            with zero mean     : -1097.856
+##  ARIMA(2,0,1)            with non-zero mean : -1096.739
+##  ARIMA(2,0,2)            with zero mean     : -1099.108
+##  ARIMA(2,0,2)            with non-zero mean : -1097.926
+##  ARIMA(2,0,3)            with zero mean     : -1127.045
+##  ARIMA(2,0,3)            with non-zero mean : -1125.82
+##  ARIMA(3,0,0)            with zero mean     : -1091.853
+##  ARIMA(3,0,0)            with non-zero mean : -1090.043
+##  ARIMA(3,0,1)            with zero mean     : -1123.338
+##  ARIMA(3,0,1)            with non-zero mean : -1122.065
+##  ARIMA(3,0,2)            with zero mean     : -1130.027
+##  ARIMA(3,0,2)            with non-zero mean : -1128.815
+##  ARIMA(4,0,0)            with zero mean     : -1090.744
+##  ARIMA(4,0,0)            with non-zero mean : -1088.933
+##  ARIMA(4,0,1)            with zero mean     : -1137.667
+##  ARIMA(4,0,1)            with non-zero mean : -1136.199
+##  ARIMA(5,0,0)            with zero mean     : -1119.94
+##  ARIMA(5,0,0)            with non-zero mean : -1118.134
+## 
+##  Now re-fitting the best model(s) without approximations...
+## 
+##  ARIMA(0,0,0)            with zero mean     : -931.6883
+##  ARIMA(0,0,0)            with non-zero mean : -929.6883
+##  ARIMA(0,0,1)            with zero mean     : -953.6117
+##  ARIMA(0,0,1)            with non-zero mean : -951.6118
+##  ARIMA(0,0,2)            with zero mean     : -963.2431
+##  ARIMA(0,0,2)            with non-zero mean : -961.2456
+##  ARIMA(0,0,3)            with zero mean     : -1013.309
+##  ARIMA(0,0,3)            with non-zero mean : -1011.314
+##  ARIMA(0,0,4)            with zero mean     : -1016.323
+##  ARIMA(0,0,4)            with non-zero mean : -1014.332
+##  ARIMA(0,0,5)            with zero mean     : -1039.042
+##  ARIMA(0,0,5)            with non-zero mean : -1037.064
+##  ARIMA(1,0,0)            with zero mean     : -962.773
+##  ARIMA(1,0,0)            with non-zero mean : -960.7738
+##  ARIMA(1,0,1)            with zero mean     : Inf
+##  ARIMA(1,0,1)            with non-zero mean : Inf
+##  ARIMA(1,0,2)            with zero mean     : Inf
+##  ARIMA(1,0,2)            with non-zero mean : Inf
+##  ARIMA(1,0,3)            with zero mean     : Inf
+##  ARIMA(1,0,3)            with non-zero mean : -1120.07
+##  ARIMA(1,0,4)            with zero mean     : Inf
+##  ARIMA(1,0,4)            with non-zero mean : Inf
+##  ARIMA(2,0,0)            with zero mean     : -988.8586
+##  ARIMA(2,0,0)            with non-zero mean : -986.8697
+##  ARIMA(2,0,1)            with zero mean     : Inf
+##  ARIMA(2,0,1)            with non-zero mean : Inf
+##  ARIMA(2,0,2)            with zero mean     : -1119.552
+##  ARIMA(2,0,2)            with non-zero mean : -1118.042
+##  ARIMA(2,0,3)            with zero mean     : Inf
+##  ARIMA(2,0,3)            with non-zero mean : Inf
+##  ARIMA(3,0,0)            with zero mean     : -1078.489
+##  ARIMA(3,0,0)            with non-zero mean : -1076.569
+##  ARIMA(3,0,1)            with zero mean     : Inf
+##  ARIMA(3,0,1)            with non-zero mean : Inf
+##  ARIMA(3,0,2)            with zero mean     : Inf
+##  ARIMA(3,0,2)            with non-zero mean : Inf
+##  ARIMA(4,0,0)            with zero mean     : -1078.247
+##  ARIMA(4,0,0)            with non-zero mean : -1076.345
+##  ARIMA(4,0,1)            with zero mean     : Inf
+##  ARIMA(4,0,1)            with non-zero mean : Inf
+##  ARIMA(5,0,0)            with zero mean     : -1105.872
+##  ARIMA(5,0,0)            with non-zero mean : -1104.058
+## 
+## 
+## 
+## 
+## 
+##  Best model: ARIMA(1,0,3)            with non-zero mean
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# It says ARMA(1,3) is the best}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model_part_c <-}\StringTok{ }\KeywordTok{arima}\NormalTok{(res, }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\KeywordTok{summary}\NormalTok{(model_part_c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## arima(x = res, order = c(1, 0, 3))
+## 
+## Coefficients:
+##          ar1      ma1      ma2     ma3  intercept
+##       0.9883  -1.0841  -0.0061  0.2352    -0.0161
+## s.e.  0.0077   0.0536   0.0920  0.0619     0.0318
+## 
+## sigma^2 estimated as 0.003683:  log likelihood = 566.03,  aic = -1120.07
+## 
+## Training set error measures:
+##                       ME       RMSE       MAE      MPE     MAPE      MASE
+## Training set 0.002965673 0.06069078 0.0483887 98.44751 268.4778 0.6630548
+##                    ACF1
+## Training set -0.0216579
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{checkresiduals}\NormalTok{(model_part_c)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{A3_final_question_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\begin{verbatim}
+## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(1,0,3) with non-zero mean
+## Q* = 187.21, df = 19, p-value < 2.2e-16
+## 
+## Model df: 5.   Total lags used: 24
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{test}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(model_part_c))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Null hypothesis: Residuals are iid noise.
+## Test                        Distribution Statistic   p-value
+## Ljung-Box Q                Q ~ chisq(20)    144.92         0 *
+## McLeod-Li Q                Q ~ chisq(20)      37.8    0.0094 *
+## Turning points T    (T-272)/8.5 ~ N(0,1)       285     0.127
+## Diff signs S      (S-204.5)/5.9 ~ N(0,1)       211    0.2667
+## Rank P       (P-41922.5)/1386.2 ~ N(0,1)     38675    0.0191 *
+\end{verbatim}
+
+\includegraphics{A3_final_question_files/figure-latex/unnamed-chunk-12-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{confint}\NormalTok{(}\KeywordTok{arima}\NormalTok{(}\KeywordTok{window}\NormalTok{(res),}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{))) }\CommentTok{# These figures suggest that ARma(1,3) suffices.}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 2.5 %      97.5 %
+## ar1        0.97320834  1.00348210
+## ma1       -1.18923496 -0.97901564
+## ma2       -0.18647590  0.17417922
+## ma3        0.11384685  0.35660945
+## intercept -0.07841339  0.04617739
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Forecasting w/ ARMA(1,3)}
+\NormalTok{remainder <-}\StringTok{ }\KeywordTok{forecast}\NormalTok{(model, }\DataTypeTok{h =} \DecValTok{12}\NormalTok{)}
+
+\NormalTok{dummy1 <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{forecast}\NormalTok{(quadratic, }\DataTypeTok{h =} \DecValTok{12}\NormalTok{)}\OperatorTok{$}\NormalTok{mean)}
+\NormalTok{t1 <-}\StringTok{ }\KeywordTok{ts}\NormalTok{(dummy1, }\DataTypeTok{start =} \KeywordTok{c}\NormalTok{(}\DecValTok{1990}\NormalTok{, }\DecValTok{3}\NormalTok{), }\DataTypeTok{end =} \KeywordTok{c}\NormalTok{(}\DecValTok{1991}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{frequency =} \DecValTok{12}\NormalTok{)}
+
+\NormalTok{dummy2 <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(beer_stl}\OperatorTok{$}\NormalTok{time.series[,}\StringTok{"seasonal"}\NormalTok{])}
+\NormalTok{t2 <-}\StringTok{ }\KeywordTok{ts}\NormalTok{(}\KeywordTok{tail}\NormalTok{(dummy2, }\DecValTok{12}\NormalTok{), }\DataTypeTok{start =} \KeywordTok{c}\NormalTok{(}\DecValTok{1990}\NormalTok{, }\DecValTok{3}\NormalTok{), }\DataTypeTok{end =} \KeywordTok{c}\NormalTok{(}\DecValTok{1991}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{frequency =} \DecValTok{12}\NormalTok{)}
+
+\NormalTok{remainder}\OperatorTok{$}\NormalTok{mean <-}\StringTok{ }\NormalTok{t1 }\OperatorTok{+}\StringTok{ }\NormalTok{remainder}\OperatorTok{$}\NormalTok{mean }\OperatorTok{+}\StringTok{ }\NormalTok{t2}
+\NormalTok{remainder}\OperatorTok{$}\NormalTok{lower <-}\StringTok{ }\NormalTok{t1 }\OperatorTok{+}\StringTok{ }\NormalTok{remainder}\OperatorTok{$}\NormalTok{lower }\OperatorTok{+}\StringTok{ }\NormalTok{t2}
+\NormalTok{remainder}\OperatorTok{$}\NormalTok{upper <-}\StringTok{ }\NormalTok{t1 }\OperatorTok{+}\StringTok{ }\NormalTok{remainder}\OperatorTok{$}\NormalTok{upper }\OperatorTok{+}\StringTok{ }\NormalTok{t2}
+
+\CommentTok{# Make sure do not use ggfortify and forecast simultaneously}
+\KeywordTok{autoplot}\NormalTok{(remainder, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{6}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{autolayer}\NormalTok{(beer)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{A3_final_question_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{errors <-}\StringTok{ }\NormalTok{beer_tail }\OperatorTok{-}\StringTok{ }\NormalTok{remainder}\OperatorTok{$}\NormalTok{mean}
+\NormalTok{df2 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(remainder}\OperatorTok{$}\NormalTok{mean, errors, remainder}\OperatorTok{$}\NormalTok{lower, remainder}\OperatorTok{$}\NormalTok{upper)}
+\KeywordTok{colnames}\NormalTok{(df2) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Estimate"}\NormalTok{, }\StringTok{"Errors"}\NormalTok{, }\StringTok{"80% C.I. Lower"}\NormalTok{, }\StringTok{"95% C.I. Lower"}\NormalTok{, }\StringTok{"80% C.I. Upper"}\NormalTok{, }\StringTok{"95% C.I. Upper"}\NormalTok{)}
+\NormalTok{df2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Estimate      Errors 80% C.I. Lower 95% C.I. Lower 80% C.I. Upper
+## 1  5.066742  0.02700864       4.988485       4.947058       5.144999
+## 2  4.990779  0.04357311       4.912164       4.870547       5.069394
+## 3  4.939153  0.08997675       4.860143       4.818318       5.018163
+## 4  4.867174  0.04105907       4.787455       4.745254       4.946894
+## 5  4.953062  0.04617520       4.872656       4.830091       5.033468
+## 6  4.972182  0.02705554       4.891110       4.848194       5.053253
+## 7  4.965868 -0.07176689       4.884152       4.840894       5.047585
+## 8  5.133099  0.13372811       5.050758       5.007169       5.215440
+## 9  5.180510  0.15894923       5.097563       5.053654       5.263457
+## 10 5.267113  0.01609029       5.183579       5.139359       5.350648
+## 11 5.058233  0.04163369       4.974128       4.929606       5.142337
+## 12 4.981379  0.01583343       4.896721       4.851906       5.066036
+##    95% C.I. Upper
+## 1        5.186425
+## 2        5.111010
+## 3        5.059989
+## 4        4.989095
+## 5        5.076033
+## 6        5.096170
+## 7        5.090842
+## 8        5.259028
+## 9        5.307366
+## 10       5.394868
+## 11       5.186859
+## 12       5.110851
+\end{verbatim}
+
+As we can see, the method of part b and the method of part c are of the
+same quality. This is because in part b we use tslm to estimate the
+trend while in part c we estimate the trend quite separately. The paths
+are different but the goals are the same.
+
+
+\end{document}
